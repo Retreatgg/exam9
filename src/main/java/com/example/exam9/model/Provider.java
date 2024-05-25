@@ -18,6 +18,7 @@ public class Provider {
     private Long id;
 
     private String name;
+    private Double balance;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider", cascade = CascadeType.ALL)
     private List<ProviderUsers> providerUsers;

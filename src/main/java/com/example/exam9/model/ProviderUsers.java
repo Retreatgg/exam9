@@ -1,14 +1,12 @@
 package com.example.exam9.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name = "provider_users")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,5 +27,4 @@ public class ProviderUsers {
     @Column(name = "account_number")
     private Integer accountNumber;
 
-    private Double balance;
 }

@@ -30,6 +30,3 @@ databaseChangeLog:
               - column:
                   name: account_number
                   type: int
-              - column:
-                  name: balance
-                  type: double

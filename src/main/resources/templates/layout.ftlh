@@ -41,6 +41,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <#assign known = SPRING_SECURITY_CONTEXT??>
                 <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/provider">providers</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <@spring.message "layout.change.lang"/>

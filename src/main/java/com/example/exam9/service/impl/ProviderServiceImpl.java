@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -23,9 +24,20 @@ public class ProviderServiceImpl implements ProviderService {
         List<ProviderDto> list = new ArrayList<>();
         providers.forEach(p -> {
             list.add(ProviderDto.builder()
+                    .id(p.getId())
                     .name(p.getName())
                     .build());
         });
         return list;
     }
+
+    @Override
+    public ProviderDto getProviderById(Long id) {
+        Provider provider = providerRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Provider is not found"));
+        return ProviderDto.builder()
+                .id(provider.getId())
+                .name(provider.getName())
+                .build();
+    }
+
 }

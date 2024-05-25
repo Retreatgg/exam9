@@ -9,4 +9,6 @@ import java.util.List;
 public interface ProviderService {
 
     List<ProviderDto> getProviders();
+    ProviderDto getProviderById(Long id);
+
 }

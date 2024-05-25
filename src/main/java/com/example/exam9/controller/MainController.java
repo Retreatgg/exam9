@@ -20,7 +20,6 @@ public class MainController {
 
     private final UserUtil userUtil;
     private final UserService userService;
-    private final ProviderService providerService;
 
     @GetMapping("")
     public String main(Authentication auth, Model model) {
@@ -28,7 +27,6 @@ public class MainController {
             UserDto user = userUtil.getUserByAuth(auth);
             model.addAttribute("user", user);
         }
-        model.addAttribute("providers", providerService.getProviders());
         return "main/index";
     }
 

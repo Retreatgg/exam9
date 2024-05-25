@@ -7,5 +7,6 @@ import lombok.Data;
 @Builder
 public class ProviderDto {
 
+    private Long id;
     private String name;
 }

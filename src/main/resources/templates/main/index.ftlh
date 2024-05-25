@@ -1,12 +1,6 @@
 <#import "../layout.ftlh" as main>
 <@main.layout>
 
-    <#if user??>
-        <h1>Your balance: ${user.getAmountMoney()}</h1>
-        <#else>
-            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#topUpYourAccountModal">Top up your account anonim</button>
-    </#if>
-
     <div class="modal fade" id="topUpYourAccountModal" tabindex="-1" role="dialog" aria-labelledby="sendPaymentModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -58,22 +52,14 @@
     <body>
     <div class="container my-4">
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <h3 class="fs-4">Услуги</h3>
-            <a class="fs-4 text-decoration-none" href="#">История</a>
-        </div>
-
-        <div class="mt-4">
-
-            <div class="cards d-flex flex-wrap gap-3 m-2">
-               <#list providers as p>
-                   <div class="card bg-primary text-white p-3 d-flex align-items-center justify-content-center m-2">
-                       <p class="m-0 card-text">${p.getName()}</p>
-                   </div>
-               </#list>
-
-
-            </div>
+            <#if user??>
+                <h1>Your balance: ${user.getAmountMoney()}</h1>
+            <#else>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#topUpYourAccountModal">Top up your account anonim</button>
+            </#if>
         </div>
     </div>
+
+
 
 </@main.layout>
