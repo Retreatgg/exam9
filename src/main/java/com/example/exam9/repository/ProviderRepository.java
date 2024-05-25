@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProviderRepository extends JpaRepository<Provider, Long> {
+public interface ProviderRepository extends JpaRepository<Provider, Integer> {
+
+    Boolean existsByAccount(Integer account);
 
 }

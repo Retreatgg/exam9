@@ -24,9 +24,14 @@ databaseChangeLog:
                   name: to_account_id
                   type: int
                   constraints:
-                    nullable: false
                     foreignKeyName: fk_to_account_id
                     references: users(personal_account_number)
+              - column:
+                  name: to_provider_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_to_provider_id
+                    references: providers(account)
               - column:
                   name: amount
                   type: double

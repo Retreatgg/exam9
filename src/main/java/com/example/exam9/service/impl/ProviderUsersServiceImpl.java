@@ -22,15 +22,15 @@ public class ProviderUsersServiceImpl implements ProviderUsersService {
 
 
     @Override
-    public Integer createUniqueAccount(Integer userId, Long providerId) {
+    public Integer createUniqueAccount(Integer userId, Integer account) {
         Integer uniqueNumber = uniqueNumberService.generateUniqueNumber();
         ProviderUsers providerUsers = ProviderUsers.builder()
                 .user(userRepository.findByPersonalAccountNumber(userId).get())
-                .provider(providerRepository.findById(providerId).get())
+                .provider(providerRepository.findById(account).get())
                 .accountNumber(uniqueNumber)
                 .build();
 
-        Integer number = getUniqueNumber(userId, providerId);
+        Integer number = getUniqueNumber(userId, account);
         if(number == null) {
             providerUsersRepository.save(providerUsers);
             return uniqueNumber;
@@ -40,7 +40,7 @@ public class ProviderUsersServiceImpl implements ProviderUsersService {
     }
 
     @Override
-    public Integer getUniqueNumber(Integer personalAccountNumber, Long providerId) {
+    public Integer getUniqueNumber(Integer personalAccountNumber, Integer providerId) {
         User user = userRepository.findByPersonalAccountNumber(personalAccountNumber).get();
         Provider provider = providerRepository.findById(providerId).get();
         return providerUsersRepository.findAccountNumberByUserAndProvider(user, provider);

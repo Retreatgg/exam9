@@ -23,10 +23,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/provider/pay_account" method="POST">
+                    <form action="/provider/pay" method="POST">
+
                         <div class="form-group">
-                            <label for="accountNumber">Уникальный номер счета</label>
-                            <input type="text" class="form-control" id="accountNumber" name="accountNumber"
+                            <label for="accountNumber">Уникальный номер реквизита</label>
+                            <input type="text" class="form-control" id="accountNumber" name="requisites"
                                    placeholder="Введите номер счета">
                         </div>
                         <div class="form-group">
@@ -34,6 +35,8 @@
                             <input type="number" class="form-control" id="amount" name="amount"
                                    placeholder="Введите сумму">
                         </div>
+
+                        <input type="hidden" name="accountProvider" value="${provider.account}">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                             <button type="submit" class="btn btn-primary">Оплатить</button>
@@ -52,7 +55,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(${provider.id})
+                body: JSON.stringify(${provider.account})
             });
         });
     </script>

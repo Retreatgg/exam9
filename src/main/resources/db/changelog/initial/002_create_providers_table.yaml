@@ -7,15 +7,14 @@ databaseChangeLog:
             tableName: providers
             columns:
               - column:
-                  name: id
-                  type: long
-                  autoIncrement: true
+                  name: name
+                  type: varchar(100)
+              - column:
+                  name: account
+                  type: int
                   constraints:
                     primaryKey: true
                     nullable: false
-              - column:
-                  name: name
-                  type: varchar(100)
               - column:
                   name: balance
                   type: double

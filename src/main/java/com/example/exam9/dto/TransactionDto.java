@@ -16,7 +16,7 @@ public class TransactionDto {
 
 
     private Integer fromAccountId;
-
+    private Integer toProviderId;
     private Integer toAccountId;
     private Double amount;
 

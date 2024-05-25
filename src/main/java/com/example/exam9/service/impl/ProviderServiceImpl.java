@@ -24,7 +24,7 @@ public class ProviderServiceImpl implements ProviderService {
         List<ProviderDto> list = new ArrayList<>();
         providers.forEach(p -> {
             list.add(ProviderDto.builder()
-                    .id(p.getId())
+                    .account(String.valueOf(p.getAccount()))
                     .name(p.getName())
                     .build());
         });
@@ -32,10 +32,10 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
-    public ProviderDto getProviderById(Long id) {
+    public ProviderDto getProviderById(Integer id) {
         Provider provider = providerRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Provider is not found"));
         return ProviderDto.builder()
-                .id(provider.getId())
+                .account(provider.getAccount().toString())
                 .name(provider.getName())
                 .build();
     }

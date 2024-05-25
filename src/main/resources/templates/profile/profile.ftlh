@@ -39,21 +39,32 @@
             <tbody>
             <#list transactions as t>
                 <#if user.getPersonalAccountNumber() == t.getFromAccountId()>
-                    <tr>
-                        <td>${t.getId()}</td>
-                        <td>${t.toAccountId}</td>
-                        <td>${t.getTransactionTime()}</td>
-                        <td><@spring.message "profile.send"/></td>
-                        <td class="text-danger">- ${t.getAmount()} som</td>
-                    </tr>
+                   <#if t.toAccountId??>
+                       <tr>
+                           <td>${t.getId()}</td>
+                           <td>${t.toAccountId}</td>
+                           <td>${t.getTransactionTime()}</td>
+                           <td><@spring.message "profile.send"/></td>
+                           <td class="text-danger">- ${t.getAmount()} som</td>
+                       </tr>
+                       <#else>
+                           <tr>
+                               <td>${t.getId()}</td>
+                               <td>${t.toProviderId}</td>
+                               <td>${t.getTransactionTime()}</td>
+                               <td><@spring.message "profile.send"/></td>
+                               <td class="text-danger">- ${t.getAmount()} som</td>
+                           </tr>
+                   </#if>
                 <#else>
+
                     <tr>
                         <td>${t.getId()}</td>
                         <td>${t.getFromAccountId()}</td>
                         <td>${t.getTransactionTime()}</td>
                         <td><@spring.message "profile.received"/></td>
                         <td class="text-success">+ ${t.getAmount()} som</td>
-                    </tr>
+                        </tr>
                 </#if>
             </#list>
             </tbody>

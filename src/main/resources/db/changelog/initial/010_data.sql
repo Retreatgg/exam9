@@ -9,9 +9,9 @@ insert into TRANSACTIONS(from_account_id, to_account_id, amount, transaction_tim
 VALUES ( 111111,  222222, 500.0, current_timestamp()),
        ( 222222, 111111, 1000.0, current_timestamp());
 
-insert into PROVIDERS(name)
-VALUES ( 'Мобильная связь'),
-       ('Коммуналка'),
-       ('Интернет и ТВ'),
-       ('Штрафы и налоги'),
-       ('Отопление');
+insert into PROVIDERS(name, ACCOUNT, BALANCE)
+VALUES ( 'Мобильная связь', 999999, 1000),
+       ('Коммуналка', 888888, 1000),
+       ('Интернет и ТВ', 090909, 1000),
+       ('Штрафы и налоги', 010101, 1000),
+       ('Отопление', 080808, 1000);

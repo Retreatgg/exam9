@@ -22,11 +22,11 @@ databaseChangeLog:
                     references: users(personal_account_number)
               - column:
                   name: provider_id
-                  type: long
+                  type: integer
                   constraints:
                     nullable: false
                     foreignKeyName: fk_provider_id
-                    references: providers(id)
+                    references: providers(account)
               - column:
                   name: account_number
                   type: int

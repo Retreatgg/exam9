@@ -1,9 +1,12 @@
 package com.example.exam9.service.impl;
 
+import com.example.exam9.dto.PaymentDto;
 import com.example.exam9.dto.TransactionDto;
 import com.example.exam9.dto.TransactionSendDto;
+import com.example.exam9.model.Provider;
 import com.example.exam9.model.Transaction;
 import com.example.exam9.model.User;
+import com.example.exam9.repository.ProviderRepository;
 import com.example.exam9.repository.TransactionRepository;
 import com.example.exam9.repository.UserRepository;
 import com.example.exam9.service.TransactionService;
@@ -21,6 +24,7 @@ import java.util.Optional;
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
+    private final ProviderRepository providerRepository;
     private final UserRepository userRepository;
 
     private final DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
@@ -32,6 +36,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         transactions.forEach(t -> {
             list.add(TransactionDto.builder()
+                            .toProviderId(t.getToProviderId())
                             .id(t.getId())
                             .toAccountId(t.getToAccountId())
                             .fromAccountId(t.getFromAccountId())
@@ -63,5 +68,27 @@ public class TransactionServiceImpl implements TransactionService {
             userRepository.save(fromUser);
         }
 
+    }
+
+    @Override
+    public void sendTransactionWithProvider(Integer personalAccountNumber, PaymentDto paymentDto) {
+        String number = paymentDto.getAccountProvider().trim();
+        Integer toAccountNumber = Integer.parseInt(number);
+        if(providerRepository.existsByAccount(toAccountNumber)) {
+            Provider provider = providerRepository.findById(toAccountNumber).get();
+            User fromUser = userRepository.findByPersonalAccountNumber(personalAccountNumber).get();
+            Transaction transaction = Transaction.builder()
+                    .transactionTime(LocalDateTime.now())
+                    .toProviderId(toAccountNumber)
+                    .fromAccountId(personalAccountNumber)
+                    .amount(paymentDto.getAmount())
+                    .build();
+            transactionRepository.save(transaction);
+
+            provider.setBalance(provider.getBalance() + paymentDto.getAmount());
+            fromUser.setAmountMoney(fromUser.getAmountMoney() - paymentDto.getAmount());
+            providerRepository.save(provider);
+            userRepository.save(fromUser);
+        }
     }
 }

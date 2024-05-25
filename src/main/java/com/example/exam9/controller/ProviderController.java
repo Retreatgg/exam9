@@ -1,9 +1,10 @@
 package com.example.exam9.controller;
 
+import com.example.exam9.dto.PaymentDto;
 import com.example.exam9.dto.UserDto;
-import com.example.exam9.model.User;
 import com.example.exam9.service.ProviderService;
 import com.example.exam9.service.ProviderUsersService;
+import com.example.exam9.service.TransactionService;
 import com.example.exam9.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ public class ProviderController {
     private final ProviderService providerService;
     private final UserUtil userUtil;
     private final ProviderUsersService providerUsersService;
+    private final TransactionService transactionService;
 
     @GetMapping()
     public String providers(Model model) {
@@ -27,7 +29,7 @@ public class ProviderController {
     }
 
     @GetMapping("{id}")
-    public String getProvider(@PathVariable Long id, Model model, Authentication auth) {
+    public String getProvider(@PathVariable Integer id, Model model, Authentication auth) {
         if (auth != null) {
             UserDto user = userUtil.getUserByAuth(auth);
             Integer number = providerUsersService.getUniqueNumber(user.getPersonalAccountNumber(), id);
@@ -40,8 +42,15 @@ public class ProviderController {
         return "provider/provider";
     }
 
+    @PostMapping("pay")
+    public String pay(Authentication auth, PaymentDto paymentDto) {
+        UserDto user = userUtil.getUserByAuth(auth);
+        transactionService.sendTransactionWithProvider(user.getPersonalAccountNumber(), paymentDto);
+        return "redirect:/provider/" + paymentDto.getProviderId();
+    }
+
     @PostMapping("unique/account")
-    public String getUniqueAccount(Authentication auth, @RequestBody Long providerId, Model model) {
+    public String getUniqueAccount(Authentication auth, @RequestBody Integer providerId, Model model) {
         UserDto user = userUtil.getUserByAuth(auth);
         providerUsersService.createUniqueAccount(user.getPersonalAccountNumber(), providerId);
         return "redirect:/provider/" + providerId;
