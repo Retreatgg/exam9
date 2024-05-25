@@ -11,10 +11,10 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByEmail(String email);
+    @Query("select u.accountTypeId from User u where u.personalAccountNumber = :number")
+    List<Long> findRolesByPersonalAccountNumber(Integer number);
 
-    @Query("select u.accountTypeId from User u where u.email like :email")
-    List<Long> findRolesByEmail(String email);
+    Optional<User> findByPersonalAccountNumber(Integer number);
 
     Optional<User> findByResetPasswordToken(String token);;
 }

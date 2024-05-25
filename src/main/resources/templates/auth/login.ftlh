@@ -9,7 +9,7 @@
                             <h2><@spring.message "login.account"/></h2>
                             <form action="/auth/login" method="POST" class="login_form">
                                 <div class="form-group mt-2">
-                                    <input type="email" class="form-control" name="username" placeholder="<@spring.message "login.enter.email"/>" required>
+                                    <input type="text" class="form-control" name="username" placeholder="<@spring.message "login.enter.email"/>" required>
                                 </div>
                                 <div class="form-group mt-2">
                                     <input type="password" class="form-control" name="password" placeholder="<@spring.message "login.enter.password"/>" required>

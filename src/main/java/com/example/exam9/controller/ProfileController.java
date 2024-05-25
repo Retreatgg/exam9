@@ -6,6 +6,7 @@ import com.example.exam9.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,9 @@ public class ProfileController {
     private final UserRepository userRepository;
 
     @GetMapping()
-    public String profile() {
+    public String profile(Authentication auth, Model model) {
+        User user = userUtil.getUserByAuth(auth);
+        model.addAttribute("user", user);
         return "profile/profile";
     }
 

@@ -15,10 +15,13 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: username
-                  type: varchar(45)
+                  type: varchar(100)
               - column:
-                  name: email
-                  type: varchar(45)
+                  name: personal_account_number
+                  type: int
+              - column:
+                  name: amount_money
+                  type: double
               - column:
                   name: password
                   type: varchar(75)

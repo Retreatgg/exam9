@@ -13,9 +13,6 @@
                                     <input type="text" class="form-control" name="username" placeholder="<@spring.message "user.create.your.name"/>" required>
                                 </div>
                                 <div class="form-group mt-2">
-                                    <input type="email" class="form-control" name="email" placeholder="<@spring.message "user.create.your.email"/>" required>
-                                </div>
-                                <div class="form-group mt-2">
                                     <input type="password" class="form-control" name="password" placeholder="<@spring.message "user.create.your.password"/>" required>
                                 </div>
                                 <div class="form-group mt-2">

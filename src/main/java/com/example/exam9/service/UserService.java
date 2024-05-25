@@ -8,14 +8,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 import java.util.Locale;
 
 @Service
 public interface UserService {
     void register(UserCreateDto userDto, HttpServletRequest request);
-    List<Long> findRolesByEmail(String email);
-
     User getByResetPasswordToken(String token);
 
     void makeResetPasswdLink(HttpServletRequest request) throws UsernameNotFoundException, UnsupportedEncodingException, MessagingException;

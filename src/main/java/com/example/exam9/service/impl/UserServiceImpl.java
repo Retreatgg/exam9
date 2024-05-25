@@ -6,6 +6,7 @@ import com.example.exam9.model.User;
 import com.example.exam9.repository.UserRepository;
 import com.example.exam9.service.AuthorityService;
 import com.example.exam9.service.EmailService;
+import com.example.exam9.service.UniqueNumberService;
 import com.example.exam9.service.UserService;
 import com.example.exam9.util.Utility;
 import jakarta.mail.MessagingException;
@@ -30,15 +31,14 @@ public class UserServiceImpl implements UserService {
     private final AuthorityService authorityService;
     private final UserRepository userRepository;
     private final EmailService emailService;
+    private final UniqueNumberService uniqueNumberService;
 
     @Override
     public void register(UserCreateDto userCreateDto, HttpServletRequest request) {
-        if (isUserExistsByEmail(userCreateDto.getEmail())) {
-            throw new IllegalArgumentException("User with email " + userCreateDto.getEmail() + " already exists");
-        }
 
         User user = User.builder()
-                .email(userCreateDto.getEmail())
+                .personalAccountNumber(uniqueNumberService.generateUniqueNumber())
+                .amountMoney(1000.0)
                 .enabled(true)
                 .password(encoder.encode(userCreateDto.getPassword()))
                 .username(userCreateDto.getUsername())
@@ -46,36 +46,28 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         userRepository.save(user);
-        user.setAuthorities(setAuthoritiesUser(user.getEmail()));
+        user.setAuthorities(setAuthoritiesUser(user.getPersonalAccountNumber()));
 
         try {
-            request.login(userCreateDto.getEmail(), userCreateDto.getPassword());
+            request.login(userCreateDto.getUsername(), userCreateDto.getPassword());
         } catch (ServletException e) {
             log.error(e.getMessage());
         }
     }
 
-    @Override
-    public List<Long> findRolesByEmail(String email) {
-        return userRepository.findRolesByEmail(email);
-    }
 
-    private boolean isUserExistsByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        if(user.isPresent()) {
-            return true;
-        }
-        return false;
-    }
-
-    private List<Authority> setAuthoritiesUser(String email) {
-        List<Long> roles = findRolesByEmail(email);
+    private List<Authority> setAuthoritiesUser(Integer personalAccountNumber) {
+        List<Long> roles = findRolesByPersonalAccountNumber(personalAccountNumber);
         List<Authority> authorities = new ArrayList();
         roles.forEach(u -> {
             authorities.add(authorityService.findById(u));
         });
 
         return authorities;
+    }
+
+    private List<Long> findRolesByPersonalAccountNumber(Integer personalAccountNumber) {
+        return userRepository.findRolesByPersonalAccountNumber(personalAccountNumber);
     }
 
 
@@ -102,14 +94,14 @@ public class UserServiceImpl implements UserService {
     public void makeResetPasswdLink(HttpServletRequest request) throws UsernameNotFoundException, UnsupportedEncodingException, MessagingException {
         String email = request.getParameter("email");
         String token = UUID.randomUUID().toString();
-        updateResetPasswordToken(token, email);
+        updateResetPasswordToken(token, Integer.parseInt(email));
         String passwordLink = Utility.getSiteURL(request) + "/auth/reset_password?token=" + token;
         emailService.sendEmail(email, passwordLink);
     }
 
 
-    private void updateResetPasswordToken(String token, String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Could not find any user with the email " + email));
+    private void updateResetPasswordToken(String token, Integer number) {
+        User user = userRepository.findByPersonalAccountNumber(number).orElseThrow(() -> new UsernameNotFoundException("Could not find any user with the email " + number));
         user.setResetPasswordToken(token);
         userRepository.saveAndFlush(user);
     }

@@ -18,7 +18,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-    private String email;
+
+    @Column(name = "personal_account_number")
+    private Integer personalAccountNumber;
+    @Column(name = "amount_money")
+    private Double amountMoney;
     private String password;
     private Boolean enabled;
 
@@ -32,6 +36,5 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users", cascade = CascadeType.ALL)
     private List<Authority> authorities;
-
 
 }

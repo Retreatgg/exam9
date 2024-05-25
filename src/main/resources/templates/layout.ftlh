@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bank Profile and Transactions</title>
+        <title>MoneyTransferApp</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <style>
             .navbar-nav .nav-link {
@@ -34,7 +34,7 @@
     <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
        <div class="container">
-           <a class="navbar-brand" href="/">Bank</a>
+           <a class="navbar-brand" href="/">MoneyTransferApp</a>
            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
            </button>

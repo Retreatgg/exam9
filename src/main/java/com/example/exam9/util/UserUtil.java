@@ -21,7 +21,7 @@ public class UserUtil {
     public User getUserByAuth(Authentication auth) {
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         String email = userDetails.getUsername();
-        Optional<User> userOptional = userRepository.findByEmail(email);
+        Optional<User> userOptional = userRepository.findByPersonalAccountNumber(Integer.parseInt(email));
         return userOptional.orElseThrow(() -> new NoSuchElementException("User is not found"));
     }
 

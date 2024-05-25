@@ -22,10 +22,10 @@ public class AuthUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userRepository.findByEmail(username)
+        var user = userRepository.findByPersonalAccountNumber(Integer.parseInt(username))
                 .orElseThrow(() -> new UsernameNotFoundException("User is not found"));
 
-        return new User(user.getEmail(), user.getPassword(), getAuthorities(user.getAuthorities()));
+        return new User(user.getPersonalAccountNumber().toString(), user.getPassword(), getAuthorities(user.getAuthorities()));
     }
 
 
