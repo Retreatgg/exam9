@@ -10,6 +10,7 @@ import com.example.exam9.model.User;
 import com.example.exam9.repository.ProviderRepository;
 import com.example.exam9.repository.TransactionRepository;
 import com.example.exam9.repository.UserRepository;
+import com.example.exam9.service.ProviderUsersService;
 import com.example.exam9.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final ProviderRepository providerRepository;
     private final UserRepository userRepository;
+    private final ProviderUsersService providerUsersService;
 
     private final DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
 
@@ -81,6 +83,12 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void sendTransactionWithProvider(Integer personalAccountNumber, PaymentDto paymentDto) {
+        if(!providerUsersService.checkRequisites(paymentDto.getRequisites(), paymentDto.getAccountProvider())) {
+            String error = "These details do not belong to the supplier";
+            log.error(error);
+            throw new IllegalArgumentException(error);
+        }
+
         Integer toAccountNumber = paymentDto.getAccountProvider();
         if(providerRepository.existsByAccount(toAccountNumber)) {
             Provider provider = providerRepository.findById(toAccountNumber).get();

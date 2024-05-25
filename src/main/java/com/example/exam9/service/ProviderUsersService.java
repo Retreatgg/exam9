@@ -8,4 +8,5 @@ public interface ProviderUsersService {
     Integer createUniqueAccount(Integer userId, Integer providerId);
 
     Integer getUniqueNumber(Integer personalAccountNumber, Integer providerId);
+    Boolean checkRequisites(Integer requisite, Integer providerAccount);
 }

@@ -11,6 +11,8 @@ import com.example.exam9.service.UniqueNumberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ProviderUsersServiceImpl implements ProviderUsersService {
@@ -44,5 +46,17 @@ public class ProviderUsersServiceImpl implements ProviderUsersService {
         User user = userRepository.findByPersonalAccountNumber(personalAccountNumber).get();
         Provider provider = providerRepository.findById(providerId).get();
         return providerUsersRepository.findAccountNumberByUserAndProvider(user, provider);
+    }
+
+    @Override
+    public Boolean checkRequisites(Integer requisite, Integer providerAccount) {
+        Optional<ProviderUsers> optional = providerUsersRepository
+                .findByAccountNumberAndProvider(requisite, providerRepository.findById(providerAccount).get());
+
+        if(optional.isPresent()) {
+            return true;
+        }
+
+        return false;
     }
 }

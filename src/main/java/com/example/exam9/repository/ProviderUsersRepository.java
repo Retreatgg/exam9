@@ -8,9 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ProviderUsersRepository extends JpaRepository<ProviderUsers, Long> {
 
     @Query("select pu.accountNumber from ProviderUsers pu where pu.user = :user and pu.provider = :provider")
     Integer findAccountNumberByUserAndProvider(User user, Provider provider);
+
+    Optional<ProviderUsers> findByAccountNumberAndProvider(Integer accountNumber, Provider provider);
 }

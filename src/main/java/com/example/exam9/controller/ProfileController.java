@@ -7,6 +7,7 @@ import com.example.exam9.repository.UserRepository;
 import com.example.exam9.service.TransactionService;
 import com.example.exam9.service.UserService;
 import com.example.exam9.util.UserUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,7 @@ public class ProfileController {
     }
 
     @PostMapping("top_up")
-    public String topUpAccount(Authentication authentication, TopUpAccountDto topUpAccountDto) {
+    public String topUpAccount(Authentication authentication, @Valid TopUpAccountDto topUpAccountDto) {
         UserDto user = userUtil.getUserByAuth(authentication);
         topUpAccountDto.setAccountNumber(user.getPersonalAccountNumber());
         userService.topUpAccount(topUpAccountDto);
