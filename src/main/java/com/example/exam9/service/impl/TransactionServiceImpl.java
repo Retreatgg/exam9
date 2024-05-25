@@ -12,14 +12,15 @@ import com.example.exam9.repository.TransactionRepository;
 import com.example.exam9.repository.UserRepository;
 import com.example.exam9.service.TransactionService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
@@ -55,18 +56,25 @@ public class TransactionServiceImpl implements TransactionService {
         if(userRepository.existsByPersonalAccountNumber(toAccountNumber)) {
             User toUser = userRepository.findByPersonalAccountNumber(toAccountNumber).get();
             User fromUser = userRepository.findByPersonalAccountNumber(fromAccountNumber).get();
-            Transaction transaction = Transaction.builder()
-                    .transactionTime(LocalDateTime.now())
-                    .toAccountId(toAccountNumber)
-                    .fromAccountId(fromAccountNumber)
-                    .amount(transactionSendDto.getAmount())
-                    .build();
-            transactionRepository.save(transaction);
+            if(checkUserBalance(fromUser.getAmountMoney(), transactionSendDto.getAmount())) {
+                Transaction transaction = Transaction.builder()
+                        .transactionTime(LocalDateTime.now())
+                        .toAccountId(toAccountNumber)
+                        .fromAccountId(fromAccountNumber)
+                        .amount(transactionSendDto.getAmount())
+                        .build();
+                transactionRepository.save(transaction);
+                log.info("The translation was completed successfully");
 
-            toUser.setAmountMoney(toUser.getAmountMoney() + transactionSendDto.getAmount());
-            fromUser.setAmountMoney(fromUser.getAmountMoney() - transactionSendDto.getAmount());
-            userRepository.save(toUser);
-            userRepository.save(fromUser);
+                toUser.setAmountMoney(toUser.getAmountMoney() + transactionSendDto.getAmount());
+                fromUser.setAmountMoney(fromUser.getAmountMoney() - transactionSendDto.getAmount());
+                userRepository.save(toUser);
+                userRepository.save(fromUser);
+            } else {
+                String error = "Insufficient funds";
+                log.error(error);
+                throw new IllegalArgumentException(error);
+            }
         }
 
     }
@@ -77,18 +85,26 @@ public class TransactionServiceImpl implements TransactionService {
         if(providerRepository.existsByAccount(toAccountNumber)) {
             Provider provider = providerRepository.findById(toAccountNumber).get();
             User fromUser = userRepository.findByPersonalAccountNumber(personalAccountNumber).get();
-            Transaction transaction = Transaction.builder()
-                    .transactionTime(LocalDateTime.now())
-                    .toProviderId(toAccountNumber)
-                    .fromAccountId(personalAccountNumber)
-                    .amount(paymentDto.getAmount())
-                    .build();
-            transactionRepository.save(transaction);
+            if(checkUserBalance(fromUser.getAmountMoney(), paymentDto.getAmount())) {
+                Transaction transaction = Transaction.builder()
+                        .transactionTime(LocalDateTime.now())
+                        .toProviderId(toAccountNumber)
+                        .fromAccountId(personalAccountNumber)
+                        .amount(paymentDto.getAmount())
+                        .build();
+                transactionRepository.save(transaction);
+                log.info("The translation was completed successfully");
 
-            provider.setBalance(provider.getBalance() + paymentDto.getAmount());
-            fromUser.setAmountMoney(fromUser.getAmountMoney() - paymentDto.getAmount());
-            providerRepository.save(provider);
-            userRepository.save(fromUser);
+                provider.setBalance(provider.getBalance() + paymentDto.getAmount());
+                fromUser.setAmountMoney(fromUser.getAmountMoney() - paymentDto.getAmount());
+                providerRepository.save(provider);
+                userRepository.save(fromUser);
+            } else {
+                String error = "Insufficient funds";
+                log.error(error);
+                throw new IllegalArgumentException(error);
+            }
+
         }
     }
 
@@ -104,5 +120,12 @@ public class TransactionServiceImpl implements TransactionService {
         User user = userRepository.findByPersonalAccountNumber(topUpAccountDto.getAccountNumber()).get();
         user.setAmountMoney(user.getAmountMoney() + topUpAccountDto.getAmount());
         userRepository.save(user);
+    }
+
+    private Boolean checkUserBalance(Double userBalance, Double transactionAmount) {
+        if(userBalance >= transactionAmount) {
+            return true;
+        }
+        return false;
     }
 }
