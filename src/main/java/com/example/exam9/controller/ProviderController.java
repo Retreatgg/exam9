@@ -6,6 +6,7 @@ import com.example.exam9.service.ProviderService;
 import com.example.exam9.service.ProviderUsersService;
 import com.example.exam9.service.TransactionService;
 import com.example.exam9.util.UserUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -43,10 +44,10 @@ public class ProviderController {
     }
 
     @PostMapping("pay")
-    public String pay(Authentication auth, PaymentDto paymentDto) {
+    public String pay(Authentication auth, @Valid PaymentDto paymentDto) {
         UserDto user = userUtil.getUserByAuth(auth);
         transactionService.sendTransactionWithProvider(user.getPersonalAccountNumber(), paymentDto);
-        return "redirect:/provider/" + paymentDto.getProviderId();
+        return "redirect:/provider/" + paymentDto.getAccountProvider();
     }
 
     @PostMapping("unique/account")

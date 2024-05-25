@@ -1,6 +1,9 @@
 <#import "spring.ftl" as spring>
 <#macro layout>
 
+
+
+
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -42,7 +45,7 @@
                 <#assign known = SPRING_SECURITY_CONTEXT??>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/provider">providers</a>
+                        <a class="nav-link" href="/provider"><@spring.message "layout.providers"/></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

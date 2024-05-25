@@ -1,11 +1,11 @@
 <#import "../layout.ftlh" as main>
-<@main.layout>
+<@main.layout ; spring>
 
     <div class="modal fade" id="topUpYourAccountModal" tabindex="-1" role="dialog" aria-labelledby="sendPaymentModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="sendPaymentModalLabel">Send a Payment</h5>
+                    <h5 class="modal-title" id="sendPaymentModalLabel"><@spring.message "profile.top.up.account"/></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -14,15 +14,14 @@
                     <form action="/anonim/top_up" method="POST">
                         <div class="form-group">
                             <label for="amount">Your account number</label>
-                            <input type="number" class="form-control" id="amount" name="accountNumber" placeholder="Enter amount">
+                            <input type="number" class="form-control" id="amount" name="accountNumber" placeholder="<@spring.message "profile.enter.account.number"/>">
                         </div>
                         <div class="form-group">
                             <label for="amount">Amount</label>
-                            <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount">
+                            <input type="number" class="form-control" id="amount" name="amount" placeholder="<@spring.message "profile.enter.amount"/>">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Send Payment</button>
+                            <button type="submit" class="btn btn-primary"><@spring.message "profile.replenish"/></button>
                         </div>
                     </form>
                 </div>
@@ -30,10 +29,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 
 
     <style>

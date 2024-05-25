@@ -3,8 +3,10 @@ package com.example.exam9.controller;
 import com.example.exam9.dto.TopUpAccountDto;
 import com.example.exam9.dto.UserDto;
 import com.example.exam9.service.ProviderService;
+import com.example.exam9.service.TransactionService;
 import com.example.exam9.service.UserService;
 import com.example.exam9.util.UserUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ public class MainController {
 
     private final UserUtil userUtil;
     private final UserService userService;
+    private final TransactionService transactionService;
 
     @GetMapping("")
     public String main(Authentication auth, Model model) {
@@ -32,8 +35,9 @@ public class MainController {
 
 
     @PostMapping("anonim/top_up")
-    public String topUp(TopUpAccountDto topUpAccountDto) {
+    public String topUp(@Valid TopUpAccountDto topUpAccountDto) {
         userService.topUpAccount(topUpAccountDto);
+        transactionService.sendTransactionTerminal(topUpAccountDto);
         return "redirect:/";
     }
 }

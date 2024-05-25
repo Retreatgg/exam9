@@ -17,7 +17,6 @@ databaseChangeLog:
                   name: from_account_id
                   type: int
                   constraints:
-                    nullable: false
                     foreignKeyName: fk_from_account_id
                     references: users(personal_account_number)
               - column:

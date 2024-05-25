@@ -1,5 +1,6 @@
 package com.example.exam9.dto;
 
+import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,7 +9,10 @@ import lombok.Data;
 public class PaymentDto {
 
     private Long providerId;
+    @Positive
     private Integer requisites;
-    private String accountProvider;
+    private Integer accountProvider;
+
+    @Positive
     private Double amount;
 }

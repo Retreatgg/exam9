@@ -7,6 +7,7 @@ import com.example.exam9.repository.TransactionRepository;
 import com.example.exam9.service.TransactionService;
 import com.example.exam9.service.UserService;
 import com.example.exam9.util.UserUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class TransactionController {
     private final UserUtil userUtil;
 
     @PostMapping("send")
-    public String sendTransaction(Authentication auth, TransactionSendDto transactionSendDto) {
+    public String sendTransaction(Authentication auth, @Valid TransactionSendDto transactionSendDto) {
         UserDto user = userUtil.getUserByAuth(auth);
         transactionService.sendTransaction(transactionSendDto, user.getPersonalAccountNumber());
         return "redirect:/profile";

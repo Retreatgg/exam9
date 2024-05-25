@@ -1,5 +1,5 @@
 <#import "../layout.ftlh" as main>
-<@main.layout>
+<@main.layout ; spring>
 
     <div class="container my-4">
         <div class="mt-4">
@@ -9,7 +9,7 @@
                         <div class="card bg-primary text-white p-3 mb-4">
                             <div class="card-body d-flex flex-column align-items-center">
                                 <p class="card-text mb-2">${p.getName()}</p>
-                                <a href="/provider/${p.account}" class="btn btn-light btn-sm mb-2">Перейти на страницу</a>
+                                <a href="/provider/${p.account}" class="btn btn-light btn-sm mb-2"><@spring.message "providers.link"/></a>
                             </div>
                         </div>
                     </div>

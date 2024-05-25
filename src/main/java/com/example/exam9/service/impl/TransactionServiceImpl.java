@@ -1,6 +1,7 @@
 package com.example.exam9.service.impl;
 
 import com.example.exam9.dto.PaymentDto;
+import com.example.exam9.dto.TopUpAccountDto;
 import com.example.exam9.dto.TransactionDto;
 import com.example.exam9.dto.TransactionSendDto;
 import com.example.exam9.model.Provider;
@@ -72,8 +73,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void sendTransactionWithProvider(Integer personalAccountNumber, PaymentDto paymentDto) {
-        String number = paymentDto.getAccountProvider().trim();
-        Integer toAccountNumber = Integer.parseInt(number);
+        Integer toAccountNumber = paymentDto.getAccountProvider();
         if(providerRepository.existsByAccount(toAccountNumber)) {
             Provider provider = providerRepository.findById(toAccountNumber).get();
             User fromUser = userRepository.findByPersonalAccountNumber(personalAccountNumber).get();
@@ -90,5 +90,19 @@ public class TransactionServiceImpl implements TransactionService {
             providerRepository.save(provider);
             userRepository.save(fromUser);
         }
+    }
+
+    @Override
+    public void sendTransactionTerminal(TopUpAccountDto topUpAccountDto) {
+        Transaction transaction = Transaction.builder()
+                .amount(topUpAccountDto.getAmount())
+                .transactionTime(LocalDateTime.now())
+                .toAccountId(topUpAccountDto.getAccountNumber())
+                .build();
+
+        transactionRepository.save(transaction);
+        User user = userRepository.findByPersonalAccountNumber(topUpAccountDto.getAccountNumber()).get();
+        user.setAmountMoney(user.getAmountMoney() + topUpAccountDto.getAmount());
+        userRepository.save(user);
     }
 }

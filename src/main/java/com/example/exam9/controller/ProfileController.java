@@ -54,6 +54,9 @@ public class ProfileController {
         UserDto user = userUtil.getUserByAuth(authentication);
         topUpAccountDto.setAccountNumber(user.getPersonalAccountNumber());
         userService.topUpAccount(topUpAccountDto);
+        transactionService.sendTransactionTerminal(topUpAccountDto);
         return "redirect:/profile";
     }
+
+
 }

@@ -1,13 +1,13 @@
 <#import "../layout.ftlh" as main>
-<@main.layout>
+<@main.layout ; spring>
 
     <div class="container my-4">
         <#if number??>
-            <h3 class="fs-4">Ваши реквизиты: ${number}</h3>
+            <h3 class="fs-4"><@spring.message "provider.your.req"/>: ${number?c}</h3>
         </#if>
-        <h3 class="fs-4">Провайдер: ${provider.name}</h3>
-        <button id="unique" class="btn btn-outline-primary">Получить уникальный номер счета</button>
-        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#payAccountModal">Оплатить счет
+        <h3 class="fs-4"><@spring.message "provider.provider"/>: ${provider.name}</h3>
+        <button id="unique" class="btn btn-outline-primary"><@spring.message "provider.get.unique.account"/></button>
+        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#payAccountModal"><@spring.message "provider.paid"/>
         </button>
         <div id="accountNumberContainer" class="mt-3"></div>
     </div>
@@ -17,7 +17,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="payAccountModalLabel">Оплата счета</h5>
+                    <h5 class="modal-title" id="payAccountModalLabel"><@spring.message "provider.bill.payment"/></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -26,20 +26,19 @@
                     <form action="/provider/pay" method="POST">
 
                         <div class="form-group">
-                            <label for="accountNumber">Уникальный номер реквизита</label>
+                            <label for="accountNumber"><@spring.message "provider.unique.account"/></label>
                             <input type="text" class="form-control" id="accountNumber" name="requisites"
-                                   placeholder="Введите номер счета">
+                                   placeholder="<@spring.message "profile.enter.account.number"/>">
                         </div>
                         <div class="form-group">
                             <label for="amount">Сумма</label>
                             <input type="number" class="form-control" id="amount" name="amount"
-                                   placeholder="Введите сумму">
+                                   placeholder="<@spring.message "profile.enter.amount"/>">
                         </div>
 
                         <input type="hidden" name="accountProvider" value="${provider.account}">
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            <button type="submit" class="btn btn-primary">Оплатить</button>
+                            <button type="submit" class="btn btn-primary"><@spring.message "provider.pay"/></button>
                         </div>
                     </form>
                 </div>

@@ -10,11 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class TransactionDto {
 
-
     private Long id;
-
-
-
     private Integer fromAccountId;
     private Integer toProviderId;
     private Integer toAccountId;

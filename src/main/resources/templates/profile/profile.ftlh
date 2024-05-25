@@ -8,8 +8,9 @@
         <div class="wallet-card mb-4">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h1 class="fs-2"><@spring.message "profile.personal.account"/>: ${user.getPersonalAccountNumber()}</h1>
-                    <h1 class="fs-3"><@spring.message "profile.your.balance"/>: ${user.getAmountMoney()} som</h1>
+                    <h1 class="fs-2"><@spring.message "profile.personal.account"/>
+                        : ${user.getPersonalAccountNumber()?c}</h1>
+                    <h1 class="fs-3"><@spring.message "profile.your.balance"/>: ${user.getAmountMoney()?c} som</h1>
                 </div>
                 <div>
                     <button
@@ -38,33 +39,44 @@
             </thead>
             <tbody>
             <#list transactions as t>
-                <#if user.getPersonalAccountNumber() == t.getFromAccountId()>
-                   <#if t.toAccountId??>
-                       <tr>
-                           <td>${t.getId()}</td>
-                           <td>${t.toAccountId}</td>
-                           <td>${t.getTransactionTime()}</td>
-                           <td><@spring.message "profile.send"/></td>
-                           <td class="text-danger">- ${t.getAmount()} som</td>
-                       </tr>
-                       <#else>
-                           <tr>
-                               <td>${t.getId()}</td>
-                               <td>${t.toProviderId}</td>
-                               <td>${t.getTransactionTime()}</td>
-                               <td><@spring.message "profile.send"/></td>
-                               <td class="text-danger">- ${t.getAmount()} som</td>
-                           </tr>
-                   </#if>
-                <#else>
 
+                <#if t.getToAccountId()?? && t.getFromAccountId()??>
+                    <#if user.getPersonalAccountNumber() == t.getFromAccountId()>
+                        <#if t.toAccountId??>
+                            <tr>
+                                <td>${t.getId()}</td>
+                                <td>${t.toAccountId?c}</td>
+                                <td>${t.getTransactionTime()}</td>
+                                <td><@spring.message "profile.send"/></td>
+                                <td class="text-danger">- ${t.getAmount()?c} som</td>
+                            </tr>
+                        <#else>
+                            <tr>
+                                <td>${t.getId()}</td>
+                                <td>${t.toProviderId?c}</td>
+                                <td>${t.getTransactionTime()}</td>
+                                <td><@spring.message "profile.paid"/></td>
+                                <td class="text-danger">- ${t.getAmount()?c} som</td>
+                            </tr>
+                        </#if>
+                    <#else>
+
+                        <tr>
+                            <td>${t.getId()}</td>
+                            <td>${t.getFromAccountId()?c}</td>
+                            <td>${t.getTransactionTime()}</td>
+                            <td><@spring.message "profile.received"/></td>
+                            <td class="text-success">+ ${t.getAmount()?c} som</td>
+                        </tr>
+                    </#if>
+                <#else>
                     <tr>
                         <td>${t.getId()}</td>
-                        <td>${t.getFromAccountId()}</td>
+                        <td>Terminal</td>
                         <td>${t.getTransactionTime()}</td>
                         <td><@spring.message "profile.received"/></td>
-                        <td class="text-success">+ ${t.getAmount()} som</td>
-                        </tr>
+                        <td class="text-success">+ ${t.getAmount()?c} som</td>
+                    </tr>
                 </#if>
             </#list>
             </tbody>
@@ -89,12 +101,14 @@
                             <input type="text" class="form-control" id="toAccountNumber" name="toAccountNumber"
                                    placeholder="<@spring.message "profile.enter.account.number"/>">
                         </div>
+
                         <div class="form-group">
                             <input type="number" class="form-control" id="amount" name="amount"
                                    placeholder="<@spring.message "profile.enter.amount"/>">
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary"><@spring.message "profile.send.a.payment"/></button>
+                            <button type="submit"
+                                    class="btn btn-primary"><@spring.message "profile.send.a.payment"/></button>
                         </div>
                     </form>
                 </div>
@@ -122,7 +136,8 @@
                                    placeholder="<@spring.message "profile.enter.amount"/>">
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary"><@spring.message "profile.top.up.account"/></button>
+                            <button type="submit"
+                                    class="btn btn-primary"><@spring.message "profile.top.up.account"/></button>
                         </div>
                     </form>
                 </div>
