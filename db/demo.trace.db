@@ -1,4 +1,17 @@
-2024-05-25 09:38:46.233754+03:00 jdbc[3]: exception
+2024-05-25 12:33:55.975988+03:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "DATABASECHANGELOGLOCK" не найдена
 Table "DATABASECHANGELOGLOCK" not found; SQL statement:
 SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42102-224]
+2024-05-25 12:33:56.522736+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "insert into TRANSACTIONS(from_account_id, to_account_id, amount, transaction_time)\000aVALUES ( 111111,  222222, 500.0, current_timestamp()),\000a       ( 222222, 111111, 1000.0, current_timestamp())\000a\000a[*]insert into PROVIDERS(name)\000aVALUES ( 'Мобильная связь'),\000a       ('Коммуналка'),\000a       ('Интернет и ТВ'),\000a       ('Штрафы и налоги'),\000a       ('Отопление');"
+Syntax error in SQL statement "insert into TRANSACTIONS(from_account_id, to_account_id, amount, transaction_time)\000aVALUES ( 111111,  222222, 500.0, current_timestamp()),\000a       ( 222222, 111111, 1000.0, current_timestamp())\000a\000a[*]insert into PROVIDERS(name)\000aVALUES ( 'Мобильная связь'),\000a       ('Коммуналка'),\000a       ('Интернет и ТВ'),\000a       ('Штрафы и налоги'),\000a       ('Отопление');"; SQL statement:
+insert into TRANSACTIONS(from_account_id, to_account_id, amount, transaction_time)
+VALUES ( 111111,  222222, 500.0, current_timestamp()),
+       ( 222222, 111111, 1000.0, current_timestamp())
+
+insert into PROVIDERS(name)
+VALUES ( 'Мобильная связь'),
+       ('Коммуналка'),
+       ('Интернет и ТВ'),
+       ('Штрафы и налоги'),
+       ('Отопление'); [42000-224]

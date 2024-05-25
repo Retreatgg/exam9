@@ -36,4 +36,44 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+    <style>
+        .card {
+            width: 140px;
+            height: 100px;
+            text-align: center;
+        }
+
+        .card-text {
+            line-height: 1.5;
+            font-size: 1rem;
+        }
+    </style>
+
+    <body>
+    <div class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h3 class="fs-4">Услуги</h3>
+            <a class="fs-4 text-decoration-none" href="#">История</a>
+        </div>
+
+        <div class="mt-4">
+
+            <div class="cards d-flex flex-wrap gap-3 m-2">
+               <#list providers as p>
+                   <div class="card bg-primary text-white p-3 d-flex align-items-center justify-content-center m-2">
+                       <p class="m-0 card-text">${p.getName()}</p>
+                   </div>
+               </#list>
+
+
+            </div>
+        </div>
+    </div>
+
 </@main.layout>

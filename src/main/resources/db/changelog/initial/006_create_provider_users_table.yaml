@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create providers
+      author: Argen
+      changes:
+        - createTable:
+            tableName: provider_users
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_account_id
+                  type: integer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_account_id
+                    references: users(personal_account_number)
+              - column:
+                  name: provider_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_provider_id
+                    references: providers(id)
+              - column:
+                  name: account_number
+                  type: int
+              - column:
+                  name: balance
+                  type: double

@@ -2,6 +2,7 @@ package com.example.exam9.controller;
 
 import com.example.exam9.dto.TopUpAccountDto;
 import com.example.exam9.dto.UserDto;
+import com.example.exam9.service.ProviderService;
 import com.example.exam9.service.UserService;
 import com.example.exam9.util.UserUtil;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class MainController {
 
     private final UserUtil userUtil;
     private final UserService userService;
+    private final ProviderService providerService;
 
     @GetMapping("")
     public String main(Authentication auth, Model model) {
@@ -26,7 +28,7 @@ public class MainController {
             UserDto user = userUtil.getUserByAuth(auth);
             model.addAttribute("user", user);
         }
-
+        model.addAttribute("providers", providerService.getProviders());
         return "main/index";
     }
 

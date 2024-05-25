@@ -3,6 +3,7 @@ package com.example.exam9.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -14,17 +15,20 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
-    private String username;
     @Id
     @Column(name = "personal_account_number")
     private Integer personalAccountNumber;
+
+    private String username;
+
     @Column(name = "amount_money")
     private Double amountMoney;
+
     private String password;
+
     private Boolean enabled;
 
     private String resetPasswordToken;
-
 
     private String selectedLanguage;
 
@@ -34,4 +38,6 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users", cascade = CascadeType.ALL)
     private List<Authority> authorities;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ProviderUsers> providerUsers;
 }
