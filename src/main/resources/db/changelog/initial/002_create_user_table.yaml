@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create table for Users
+      author: Argen
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(45)
+              - column:
+                  name: email
+                  type: varchar(45)
+              - column:
+                  name: password
+                  type: varchar(75)
+              - column:
+                  name: enabled
+                  type: boolean
+              - column:
+                  name: reset_password_token
+                  type: varchar(250)
+              - column:
+                  name: selected_language
+                  type: varchar(45)
+              - column:
+                  name: account_type
+                  type: Long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_authorities_id
+                    references: authorities(id)
