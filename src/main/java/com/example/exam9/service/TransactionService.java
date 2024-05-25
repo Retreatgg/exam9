@@ -1,6 +1,7 @@
 package com.example.exam9.service;
 
 import com.example.exam9.dto.TransactionDto;
+import com.example.exam9.dto.TransactionSendDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,4 +10,5 @@ import java.util.List;
 public interface TransactionService {
 
     List<TransactionDto> getTransactionByPersonalAccountNumber(Integer personalAccountNumber);
+    void sendTransaction(TransactionSendDto transactionSendDto, Integer fromAccountNumber);
 }

@@ -11,7 +11,7 @@
                     <h1>Your balance: ${user.getAmountMoney()} som</h1>
                 </div>
                 <div>
-                    <button class="btn btn-outline-primary">Send a payment</button>
+                    <button class="btn btn-outline-primary"  data-toggle="modal" data-target="#sendPaymentModal">Send a payment</button>
                     <button class="btn btn-outline-primary">Request a payment</button>
                 </div>
             </div>
@@ -50,6 +50,36 @@
 
             </tbody>
         </table>
+    </div>
+
+    <div class="modal fade" id="sendPaymentModal" tabindex="-1" role="dialog" aria-labelledby="sendPaymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sendPaymentModalLabel">Send a Payment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/transaction/send" method="POST">
+                        <div class="form-group">
+                            <label for="toAccountNumber">Recipient Account Number</label>
+                            <input type="text" class="form-control" id="toAccountNumber" name="toAccountNumber" placeholder="Enter account number">
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Send Payment</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 </@main.layout>
