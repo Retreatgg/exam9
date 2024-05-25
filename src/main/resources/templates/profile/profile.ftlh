@@ -28,48 +28,26 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>962296152</td>
-                <td>Sherman Blankenship</td>
-                <td>08 Jan, 2022</td>
-                <td>Pending</td>
-                <td class="text-success">$217.90</td>
-            </tr>
-            <tr>
-                <td>829892537</td>
-                <td>Claudio Barrera</td>
-                <td>06 Jan, 2022</td>
-                <td>Completed</td>
-                <td class="text-success">$329.90</td>
-            </tr>
-            <tr>
-                <td>741560657</td>
-                <td>Clifton Daniel</td>
-                <td>03 Jan, 2022</td>
-                <td>Completed</td>
-                <td class="text-danger">-$549.90</td>
-            </tr>
-            <tr>
-                <td>529040347</td>
-                <td>Curt Boyer</td>
-                <td>01 Jan, 2022</td>
-                <td>Completed</td>
-                <td class="text-danger">-$238.90</td>
-            </tr>
-            <tr>
-                <td>398078341</td>
-                <td>Jeff Proctor</td>
-                <td>31 Dec, 2021</td>
-                <td>Completed</td>
-                <td class="text-danger">-$283.90</td>
-            </tr>
-            <tr>
-                <td>197401837</td>
-                <td>Rodger Fritz</td>
-                <td>24 Dec, 2021</td>
-                <td>Completed</td>
-                <td class="text-success">$237.90</td>
-            </tr>
+            <#list transactions as t>
+                <#if user.getPersonalAccountNumber() == t.getFromAccountId()>
+                    <tr>
+                        <td>${t.getId()}</td>
+                        <td>${t.toAccountId}</td>
+                        <td>08 Jan, 2022</td>
+                        <td>Отправлено</td>
+                        <td class="text-danger">${t.getAmount()}</td>
+                    </tr>
+                <#else>
+                    <tr>
+                        <td>${t.getId()}</td>
+                        <td>${t.getFromAccountId()}</td>
+                        <td>08 Jan, 2022</td>
+                        <td>Поступило</td>
+                        <td class="text-success">${t.getAmount()}</td>
+                    </tr>
+                </#if>
+            </#list>
+
             </tbody>
         </table>
     </div>

@@ -25,7 +25,7 @@ public class Authority {
     @JoinTable(
             name = "users",
             joinColumns = @JoinColumn(name = "account_type"),
-            inverseJoinColumns = @JoinColumn(name = "id")
+            inverseJoinColumns = @JoinColumn(name = "personal_account_number")
     )
     private List<User> users;
 

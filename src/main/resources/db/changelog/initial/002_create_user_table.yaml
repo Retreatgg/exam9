@@ -7,18 +7,14 @@ databaseChangeLog:
             tableName: users
             columns:
               - column:
-                  name: id
-                  type: long
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
                   name: username
                   type: varchar(100)
               - column:
                   name: personal_account_number
                   type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
               - column:
                   name: amount_money
                   type: double

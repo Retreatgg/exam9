@@ -2,6 +2,7 @@ package com.example.exam9.controller;
 
 import com.example.exam9.model.User;
 import com.example.exam9.repository.UserRepository;
+import com.example.exam9.service.TransactionService;
 import com.example.exam9.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -19,11 +20,13 @@ public class ProfileController {
 
     private final UserUtil userUtil;
     private final UserRepository userRepository;
+    private final TransactionService transactionService;
 
     @GetMapping()
     public String profile(Authentication auth, Model model) {
         User user = userUtil.getUserByAuth(auth);
         model.addAttribute("user", user);
+        model.addAttribute("transactions", transactionService.getTransactionByPersonalAccountNumber(user.getPersonalAccountNumber()));
         return "profile/profile";
     }
 

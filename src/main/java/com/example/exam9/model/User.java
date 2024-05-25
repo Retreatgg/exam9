@@ -14,11 +14,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String username;
-
+    @Id
     @Column(name = "personal_account_number")
     private Integer personalAccountNumber;
     @Column(name = "amount_money")
