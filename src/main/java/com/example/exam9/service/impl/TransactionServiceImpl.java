@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
 
+    private final DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
 
     @Override
     public List<TransactionDto> getTransactionByPersonalAccountNumber(Integer personalAccountNumber) {
@@ -34,7 +36,7 @@ public class TransactionServiceImpl implements TransactionService {
                             .toAccountId(t.getToAccountId())
                             .fromAccountId(t.getFromAccountId())
                             .amount(t.getAmount())
-                            .transactionTime(t.getTransactionTime())
+                            .transactionTime(t.getTransactionTime().format(formatters))
                     .build());
         });
 

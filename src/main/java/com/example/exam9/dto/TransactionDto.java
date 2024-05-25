@@ -20,5 +20,5 @@ public class TransactionDto {
     private Integer toAccountId;
     private Double amount;
 
-    private LocalDateTime transactionTime;
+    private String transactionTime;
 }
