@@ -40,8 +40,8 @@
             <tbody>
             <#list transactions as t>
 
-                <#if t.getToAccountId()?? && t.getFromAccountId()??>
-                    <#if user.getPersonalAccountNumber() == t.getFromAccountId()>
+                <#if t.getFromAccountId()??>
+                    <#if user.getPersonalAccountNumber()?c == t.getFromAccountId()?c>
                         <#if t.toAccountId??>
                             <tr>
                                 <td>${t.getId()}</td>
