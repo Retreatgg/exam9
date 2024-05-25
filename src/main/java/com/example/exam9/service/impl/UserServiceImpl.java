@@ -1,5 +1,6 @@
 package com.example.exam9.service.impl;
 
+import com.example.exam9.dto.TopUpAccountDto;
 import com.example.exam9.dto.UserCreateDto;
 import com.example.exam9.model.Authority;
 import com.example.exam9.model.User;
@@ -8,6 +9,7 @@ import com.example.exam9.service.AuthorityService;
 import com.example.exam9.service.EmailService;
 import com.example.exam9.service.UniqueNumberService;
 import com.example.exam9.service.UserService;
+import com.example.exam9.util.UserUtil;
 import com.example.exam9.util.Utility;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.ServletException;
@@ -32,6 +34,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final EmailService emailService;
     private final UniqueNumberService uniqueNumberService;
+    private final UserUtil userUtil;
 
     @Override
     public void register(UserCreateDto userCreateDto, HttpServletRequest request) {
@@ -87,6 +90,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Locale getUserLocale(String selectedLanguage) {
         return LocaleUtils.toLocale(selectedLanguage);
+    }
+
+    @Override
+    public void topUpAccount(TopUpAccountDto topUpAccountDto) {
+        User user = userRepository.findByPersonalAccountNumber(topUpAccountDto.getAccountNumber()).get();
+        user.setAmountMoney(user.getAmountMoney() + topUpAccountDto.getAmount());
+        userRepository.save(user);
     }
 
 

@@ -1,8 +1,10 @@
 package com.example.exam9.controller;
 
+import com.example.exam9.dto.TopUpAccountDto;
 import com.example.exam9.model.User;
 import com.example.exam9.repository.UserRepository;
 import com.example.exam9.service.TransactionService;
+import com.example.exam9.service.UserService;
 import com.example.exam9.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,7 @@ public class ProfileController {
 
     private final UserUtil userUtil;
     private final UserRepository userRepository;
+    private final UserService userService;
     private final TransactionService transactionService;
 
     @GetMapping()
@@ -42,5 +45,13 @@ public class ProfileController {
             }
         }
         return "redirect:/";
+    }
+
+    @PostMapping("top_up")
+    public String topUpAccount(Authentication authentication, TopUpAccountDto topUpAccountDto) {
+        User user = userUtil.getUserByAuth(authentication);
+        topUpAccountDto.setAccountNumber(user.getPersonalAccountNumber());
+        userService.topUpAccount(topUpAccountDto);
+        return "redirect:/profile";
     }
 }

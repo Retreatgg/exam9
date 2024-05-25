@@ -1,6 +1,6 @@
 #FileLock
-#Sat May 25 10:08:00 MSK 2024
+#Sat May 25 10:22:36 MSK 2024
 hostName=DESKTOP-APN9QD7
-id=18fae93e7ff1f625760390ec82c4bdc9ac4c49c4c3c
+id=18faea14555cebe4eec2015f01123ace56a15f027d9
 method=file
-server=172.20.10.4\:58736
+server=172.20.10.4\:59160

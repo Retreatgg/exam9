@@ -1,5 +1,6 @@
 package com.example.exam9.service;
 
+import com.example.exam9.dto.TopUpAccountDto;
 import com.example.exam9.dto.UserCreateDto;
 import com.example.exam9.model.User;
 import jakarta.mail.MessagingException;
@@ -20,4 +21,6 @@ public interface UserService {
     void updatePassword(User user, String password);
 
     Locale getUserLocale(String selectedLanguage);
+
+    void topUpAccount(TopUpAccountDto topUpAccountDto);
 }
