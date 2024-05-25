@@ -1,5 +1,6 @@
 package com.example.exam9.config;
 
+import com.example.exam9.dto.UserDto;
 import com.example.exam9.model.User;
 import com.example.exam9.service.UserService;
 import com.example.exam9.util.UserUtil;
@@ -29,7 +30,7 @@ public class AuthenticationSuccessEventListener implements ApplicationListener<A
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
 
-        User user = userUtil.getUserByAuth(event.getAuthentication());
+        UserDto user = userUtil.getUserByAuth(event.getAuthentication());
         Locale userLocale = LocaleUtils.toLocale("ru");
         if(user.getSelectedLanguage() != null) {
             userLocale = userService.getUserLocale(user.getSelectedLanguage());

@@ -6220,3 +6220,50 @@ org.hibernate.InstantiationException: No default constructor for entity 'com.exa
 2024-05-25T10:22:06.955+03:00  INFO 15924 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-05-25T10:22:06.965+03:00  INFO 15924 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-05-25T10:22:06.971+03:00  INFO 15924 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-05-25T10:22:30.807+03:00  INFO 17520 --- [main] com.example.exam9.Exam9Application       : Starting Exam9Application using Java 21.0.3 with PID 17520 (C:\Users\Argen\Desktop\exam9\target\classes started by Argen in C:\Users\Argen\Desktop\exam9)
+2024-05-25T10:22:30.815+03:00  INFO 17520 --- [main] com.example.exam9.Exam9Application       : No active profile set, falling back to 1 default profile: "default"
+2024-05-25T10:22:33.842+03:00  INFO 17520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-25T10:22:33.977+03:00  INFO 17520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 120 ms. Found 4 JPA repository interfaces.
+2024-05-25T10:22:35.098+03:00  INFO 17520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8089 (http)
+2024-05-25T10:22:35.122+03:00  INFO 17520 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-25T10:22:35.122+03:00  INFO 17520 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-05-25T10:22:35.240+03:00  INFO 17520 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-25T10:22:35.241+03:00  INFO 17520 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4243 ms
+2024-05-25T10:22:35.525+03:00  INFO 17520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-25T10:22:36.176+03:00  INFO 17520 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn1: url=jdbc:h2:./db/demo user=ADMIN
+2024-05-25T10:22:36.180+03:00  INFO 17520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-05-25T10:22:36.292+03:00  INFO 17520 --- [main] liquibase.database                       : Set default schema name to PUBLIC
+2024-05-25T10:22:36.885+03:00  INFO 17520 --- [main] liquibase.changelog                      : Reading resource: db/changelog/initial/001_create_authorities_table.yaml
+2024-05-25T10:22:36.906+03:00  INFO 17520 --- [main] liquibase.changelog                      : Reading resource: db/changelog/initial/002_create_user_table.yaml
+2024-05-25T10:22:36.917+03:00  INFO 17520 --- [main] liquibase.changelog                      : Reading resource: db/changelog/initial/003_creata_unique_numbers.yaml
+2024-05-25T10:22:36.926+03:00  INFO 17520 --- [main] liquibase.changelog                      : Reading resource: db/changelog/initial/004_create_transaction_table.yaml
+2024-05-25T10:22:36.938+03:00  INFO 17520 --- [main] liquibase.changelog                      : Reading resource: db/changelog/initial/010_data.sql
+2024-05-25T10:22:37.235+03:00  INFO 17520 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2024-05-25T10:22:37.333+03:00  INFO 17520 --- [main] liquibase.ui                             : Database is up to date, no changesets to execute
+2024-05-25T10:22:37.337+03:00  INFO 17520 --- [main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2024-05-25T10:22:37.353+03:00  INFO 17520 --- [main] liquibase.util                           : UPDATE SUMMARY
+2024-05-25T10:22:37.354+03:00  INFO 17520 --- [main] liquibase.util                           : Run:                          0
+2024-05-25T10:22:37.354+03:00  INFO 17520 --- [main] liquibase.util                           : Previously run:               5
+2024-05-25T10:22:37.354+03:00  INFO 17520 --- [main] liquibase.util                           : Filtered out:                 0
+2024-05-25T10:22:37.354+03:00  INFO 17520 --- [main] liquibase.util                           : -------------------------------
+2024-05-25T10:22:37.355+03:00  INFO 17520 --- [main] liquibase.util                           : Total change sets:            5
+2024-05-25T10:22:37.357+03:00  INFO 17520 --- [main] liquibase.util                           : Update summary generated
+2024-05-25T10:22:37.397+03:00  INFO 17520 --- [main] liquibase.lockservice                    : Successfully released change log lock
+2024-05-25T10:22:37.399+03:00  INFO 17520 --- [main] liquibase.command                        : Command execution complete
+2024-05-25T10:22:37.637+03:00  INFO 17520 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-25T10:22:37.755+03:00  INFO 17520 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.0.Final
+2024-05-25T10:22:37.823+03:00  INFO 17520 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-05-25T10:22:38.300+03:00  INFO 17520 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-25T10:22:40.503+03:00  INFO 17520 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-25T10:22:40.561+03:00  INFO 17520 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-25T10:22:41.236+03:00  INFO 17520 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-05-25T10:22:42.407+03:00  WARN 17520 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-25T10:22:43.025+03:00  INFO 17520 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2b284acc, org.springframework.security.web.session.ForceEagerSessionCreationFilter@76e5278a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@70cc0601, org.springframework.security.web.context.SecurityContextHolderFilter@3a2f4611, org.springframework.security.web.header.HeaderWriterFilter@d594a5a, org.springframework.web.filter.CorsFilter@4b27a3fc, org.springframework.security.web.authentication.logout.LogoutFilter@2114955c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@12e33c7b, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@60bc259a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@19710bd9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@23c6556b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@22b0fe7e, org.springframework.security.web.session.SessionManagementFilter@72216f0b, org.springframework.security.web.access.ExceptionTranslationFilter@4298e4b4, org.springframework.security.web.access.intercept.AuthorizationFilter@6f6d2847]
+2024-05-25T10:22:44.080+03:00  INFO 17520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8089 (http) with context path ''
+2024-05-25T10:22:44.108+03:00  INFO 17520 --- [main] com.example.exam9.Exam9Application       : Started Exam9Application in 15.06 seconds (process running for 17.589)
+2024-05-25T10:22:48.206+03:00  INFO 17520 --- [http-nio-8089-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-25T10:22:48.208+03:00  INFO 17520 --- [http-nio-8089-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-05-25T10:22:48.214+03:00  INFO 17520 --- [http-nio-8089-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2024-05-25T10:30:05.374+03:00  INFO 17520 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-25T10:30:05.390+03:00  INFO 17520 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-05-25T10:30:05.398+03:00  INFO 17520 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

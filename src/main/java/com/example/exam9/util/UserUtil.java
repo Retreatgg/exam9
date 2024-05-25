@@ -1,5 +1,6 @@
 package com.example.exam9.util;
 
+import com.example.exam9.dto.UserDto;
 import com.example.exam9.model.User;
 import com.example.exam9.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +19,17 @@ public class UserUtil {
 
     private final UserRepository userRepository;
 
-    public User getUserByAuth(Authentication auth) {
+    public UserDto getUserByAuth(Authentication auth) {
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         String email = userDetails.getUsername();
         Optional<User> userOptional = userRepository.findByPersonalAccountNumber(Integer.parseInt(email));
-        return userOptional.orElseThrow(() -> new NoSuchElementException("User is not found"));
+        User user = userOptional.orElseThrow(() -> new NoSuchElementException("User is not found"));
+        return UserDto.builder()
+                .amountMoney(user.getAmountMoney())
+                .personalAccountNumber(user.getPersonalAccountNumber())
+                .username(user.getUsername())
+                .selectedLanguage(user.getSelectedLanguage())
+                .build();
     }
 
     public String getAuthority(Authentication authentication) {
