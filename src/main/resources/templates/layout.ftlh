@@ -1,95 +1,67 @@
 <#import "spring.ftl" as spring>
 <#macro layout>
 
-    <!doctype html>
+    <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Job Search</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-              crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bank Profile and Transactions</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <style>
-            body {
+            .navbar-nav .nav-link {
+                color: white !important;
+            }
+            .table thead th {
                 background-color: #f8f9fa;
             }
-
-            .navbar {
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            .table td, .table th {
+                vertical-align: middle;
             }
-
-            .navbar-brand {
-                font-weight: bold;
-                color: #007bff;
+            .text-success {
+                color: #28a745 !important;
             }
-
-            .navbar-nav .nav-link {
-                color: #007bff;
-                font-weight: 500;
+            .text-danger {
+                color: #dc3545 !important;
             }
-
-            .navbar-nav .nav-link:hover {
-                color: #0056b3;
-            }
-
-            .btn-outline-info {
-                color: #007bff;
-                border-color: #007bff;
-                font-weight: 500;
-            }
-
-            .btn-outline-info:hover {
-                color: #0056b3;
-                background-color: transparent;
-                border-color: #0056b3;
+            .profile {
+                background-color: #2C2F48;
+                color: white;
+                padding: 10px;
             }
         </style>
     </head>
     <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="/">Bank</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <#assign known = SPRING_SECURITY_CONTEXT??>
-                    <#if known>
-                        <#assign user = SPRING_SECURITY_CONTEXT.authentication.principal>
-                    </#if>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/"><@spring.message "layout.companies"/></a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <@spring.message "layout.change.lang"/>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="?lang=ru" onclick="changeLanguage('ru')"><@spring.message "layout.ru"/></a></li>
-                            <li><a class="dropdown-item" href="?lang=en"  onclick="changeLanguage('en')"><@spring.message "layout.en"/></a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="ms-auto">
-                    <#if known>
-                        <a href="/profile" class="btn btn-outline-info m-2"><@spring.message "layout.profile"/></a>
-                        <a href="/logout" class="btn btn-outline-info m-2" id="logout"><@spring.message "layout.logout"/></a>
-                    <#else>
-                        <a href="/auth/login" class="btn btn-outline-info m-2"><@spring.message "layout.login"/></a>
-                        <a href="/auth/register" class="btn btn-outline-info m-2"><@spring.message "layout.register"/></a>
-                    </#if>
-
-                </div>
-            </div>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+       <div class="container">
+           <a class="navbar-brand" href="/">Bank</a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse" id="navbarNav">
+               <#assign known = SPRING_SECURITY_CONTEXT??>
+               <ul class="navbar-nav">
+                   <li class="nav-item dropdown">
+                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           <@spring.message "layout.change.lang"/>
+                       </a>
+                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                           <li><a class="dropdown-item" href="?lang=ru" onclick="changeLanguage('ru')"><@spring.message "layout.ru"/></a></li>
+                           <li><a class="dropdown-item" href="?lang=en"  onclick="changeLanguage('en')"><@spring.message "layout.en"/></a></li>
+                       </ul>
+                   </li>
+               </ul>
+               <ul class="navbar-nav ml-auto">
+                   <#if known>
+                       <a href="/profile" class="btn btn-outline-info m-2"><@spring.message "layout.profile"/></a>
+                       <a href="/logout" class="btn btn-outline-info m-2" id="logout"><@spring.message "layout.logout"/></a>
+                   <#else>
+                       <a href="/auth/login" class="btn btn-outline-info m-2"><@spring.message "layout.login"/></a>
+                       <a href="/auth/register" class="btn btn-outline-info m-2"><@spring.message "layout.register"/></a>
+                   </#if>
+               </ul>
+           </div>
+       </div>
     </nav>
     <div class="container">
         <#nested spring>
@@ -109,6 +81,11 @@
             });
         }
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </html>
 
 </#macro>
