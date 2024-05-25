@@ -77,6 +77,10 @@ public class TransactionServiceImpl implements TransactionService {
                 log.error(error);
                 throw new IllegalArgumentException(error);
             }
+        } else {
+            String error = "Account is not exist";
+            log.error(error);
+            throw new IllegalArgumentException(error);
         }
 
     }
@@ -126,7 +130,8 @@ public class TransactionServiceImpl implements TransactionService {
 
         transactionRepository.save(transaction);
         User user = userRepository.findByPersonalAccountNumber(topUpAccountDto.getAccountNumber()).get();
-        user.setAmountMoney(user.getAmountMoney() + topUpAccountDto.getAmount());
+        Double myMoney = user.getAmountMoney();
+        user.setAmountMoney(myMoney);
         userRepository.save(user);
     }
 

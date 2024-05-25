@@ -56,6 +56,11 @@
                 },
                 body: JSON.stringify(${provider.account})
             });
+
+            if(response.ok) {
+                location.reload();
+            }
         });
+
     </script>
 </@main.layout>

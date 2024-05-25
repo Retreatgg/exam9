@@ -27,9 +27,6 @@ public class User {
     private String password;
 
     private Boolean enabled;
-
-    private String resetPasswordToken;
-
     private String selectedLanguage;
 
     @Column(name = "account_type")

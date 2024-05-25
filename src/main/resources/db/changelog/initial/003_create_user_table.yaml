@@ -25,9 +25,6 @@ databaseChangeLog:
                   name: enabled
                   type: boolean
               - column:
-                  name: reset_password_token
-                  type: varchar(250)
-              - column:
                   name: selected_language
                   type: varchar(45)
               - column:

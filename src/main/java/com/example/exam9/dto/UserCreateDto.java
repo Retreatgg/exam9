@@ -16,11 +16,11 @@ public class UserCreateDto {
     private String username;
 
     @NotBlank
-//    @Size(min = 4, max = 24, message = "${user.validation.password.size}")
-//    @Pattern(
-//            regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).+$",
-//            message = "${user.validation.password.pattern}"
-//    )
+    @Size(min = 4, max = 24, message = "${user.validation.password.size}")
+    @Pattern(
+            regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).+$",
+            message = "${user.validation.password.pattern}"
+    )
     private String password;
 
 }

@@ -27,60 +27,64 @@
             </div>
         </div>
 
-        <table class="table mt-3 rounded border border-2">
-            <thead>
-            <tr>
-                <th scope="col"><@spring.message "profile.transaction.id"/></th>
-                <th scope="col"><@spring.message "profile.name"/></th>
-                <th scope="col"><@spring.message "profile.date"/></th>
-                <th scope="col"><@spring.message "profile.status"/></th>
-                <th scope="col"><@spring.message "profile.amount"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <#list transactions as t>
+        <#if transactions?size gt 0>
+            <table class="table mt-3 rounded border border-2">
+                <thead>
+                <tr>
+                    <th scope="col"><@spring.message "profile.transaction.id"/></th>
+                    <th scope="col"><@spring.message "profile.name"/></th>
+                    <th scope="col"><@spring.message "profile.date"/></th>
+                    <th scope="col"><@spring.message "profile.status"/></th>
+                    <th scope="col"><@spring.message "profile.amount"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <#list transactions as t>
 
-                <#if t.getFromAccountId()??>
-                    <#if user.getPersonalAccountNumber()?c == t.getFromAccountId()?c>
-                        <#if t.toAccountId??>
-                            <tr>
-                                <td>${t.getId()}</td>
-                                <td>${t.toAccountId?c}</td>
-                                <td>${t.getTransactionTime()}</td>
-                                <td><@spring.message "profile.send"/></td>
-                                <td class="text-danger">- ${t.getAmount()?c} som</td>
-                            </tr>
+                    <#if t.getFromAccountId()??>
+                        <#if user.getPersonalAccountNumber()?c == t.getFromAccountId()?c>
+                            <#if t.toAccountId??>
+                                <tr>
+                                    <td>${t.getId()}</td>
+                                    <td>${t.toAccountId?c}</td>
+                                    <td>${t.getTransactionTime()}</td>
+                                    <td><@spring.message "profile.send"/></td>
+                                    <td class="text-danger">- ${t.getAmount()?c} som</td>
+                                </tr>
+                            <#else>
+                                <tr>
+                                    <td>${t.getId()}</td>
+                                    <td>${t.toProviderId?c}</td>
+                                    <td>${t.getTransactionTime()}</td>
+                                    <td><@spring.message "profile.paid"/></td>
+                                    <td class="text-danger">- ${t.getAmount()?c} som</td>
+                                </tr>
+                            </#if>
                         <#else>
+
                             <tr>
                                 <td>${t.getId()}</td>
-                                <td>${t.toProviderId?c}</td>
+                                <td>${t.getFromAccountId()?c}</td>
                                 <td>${t.getTransactionTime()}</td>
-                                <td><@spring.message "profile.paid"/></td>
-                                <td class="text-danger">- ${t.getAmount()?c} som</td>
+                                <td><@spring.message "profile.received"/></td>
+                                <td class="text-success">+ ${t.getAmount()?c} som</td>
                             </tr>
                         </#if>
                     <#else>
-
                         <tr>
                             <td>${t.getId()}</td>
-                            <td>${t.getFromAccountId()?c}</td>
+                            <td>Terminal</td>
                             <td>${t.getTransactionTime()}</td>
                             <td><@spring.message "profile.received"/></td>
                             <td class="text-success">+ ${t.getAmount()?c} som</td>
                         </tr>
                     </#if>
-                <#else>
-                    <tr>
-                        <td>${t.getId()}</td>
-                        <td>Terminal</td>
-                        <td>${t.getTransactionTime()}</td>
-                        <td><@spring.message "profile.received"/></td>
-                        <td class="text-success">+ ${t.getAmount()?c} som</td>
-                    </tr>
-                </#if>
-            </#list>
-            </tbody>
-        </table>
+                </#list>
+                </tbody>
+            </table>
+            <#else>
+            <h3><@spring.message "profile.not.transactions"/></h3>
+        </#if>
     </div>
 
 

@@ -11,17 +11,6 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
 
-  mail:
-    host: smtp.gmail.com
-    username: devargenpm@gmail.com
-    password: vcfs pusq zeeo ncuq
-    port: 587
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls.enable: true
-
   freemarker:
     expose-session-attributes: true
 
